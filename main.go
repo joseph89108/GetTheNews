@@ -87,6 +87,7 @@ func (n *BingNews)ToHtml(wg *sync.WaitGroup) {
     foutput.WriteString("<!DOCTYPE html>\n<html>\n<head><title>BingNews</title></head>")
 	for _, v := range n.Value {
 		foutput.WriteString("<br>"+v.DatePublished+"<br>\n<a href=\""+v.Url+"\">"+v.Name+"</a><br>")
+		foutput.WriteString("<img src=\""+v.Image.Thumbnail.ContentUrl+"\"><br>")
 	}
 	foutput.WriteString("</html>")
 	foutput.Close()
@@ -105,6 +106,7 @@ func (n *News)ToHtml(wg *sync.WaitGroup) {
     foutput.WriteString("<!DOCTYPE html>\n<html>\n<head><title>News</title></head>")
 	for _, v := range n.Articles {
 		foutput.WriteString("<br>"+v.PublishedAt+"<br>\n<a href=\""+v.Url+"\">"+v.Title+"</a><br>")
+		foutput.WriteString("<img src=\""+v.UrlToImage+"\"><br>")
 	}
 	foutput.WriteString("</html>")
 	foutput.Close()

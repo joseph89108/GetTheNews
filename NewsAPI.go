@@ -12,6 +12,7 @@ type NewsArticle struct{
 	Title string
 	Url string
 	Description string
+	UrlToImage string
 }
 
 type News struct{

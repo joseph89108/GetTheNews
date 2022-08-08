@@ -12,10 +12,21 @@ type BingNewsValue struct{
 	Name string
 	Url string
 	Description string
+	Image BingImage
 }
 
 type BingNews struct{
 	Value []BingNewsValue
+}
+
+type BingImage struct{
+	Thumbnail BingThumbnail
+	IsLicensed bool
+}
+
+type BingThumbnail struct{
+	ContentUrl string
+	Width,Height int
 }
 
 func Bing(c chan bool) {
