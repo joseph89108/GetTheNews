@@ -1,11 +1,10 @@
 package main
 
 import (
-	"fmt"
 	"net/http"
 	"io/ioutil"
 	"encoding/json"
-	"time"
+	"sync"
 )
 
 type BingNewsValue struct{
@@ -37,10 +36,10 @@ func Bing(c chan bool) {
 	if err != nil {
 		return 
 	}
-	fmt.Println(time.Now()," Bing:")
-	for _, v := range news.Value {
-		fmt.Println(v)
-	}
-	fmt.Println()
+	wg := new(sync.WaitGroup)
+	wg.Add(2)
+	go news.ToTxt(wg)
+	go news.ToHtml(wg)
+	wg.Wait()
 	c <- true
 }

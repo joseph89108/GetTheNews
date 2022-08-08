@@ -1,3 +1,5 @@
 json/
 go.mod
 main
+txt/*
+html/*

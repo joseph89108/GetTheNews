@@ -1,11 +1,10 @@
 package main
 
 import (
-	"fmt"
 	"net/http"
 	"io/ioutil"
 	"encoding/json"
-	"time"
+	"sync"
 )
 
 type NewsArticle struct{
@@ -35,22 +34,10 @@ func NewsAPI(c chan bool) {
 	if err != nil {
 		return 
 	}
-	fmt.Println(time.Now()," News:")
-	for _, v := range news.Articles {
-		fmt.Println(v)
-	}
-	fmt.Println()
+	wg := new(sync.WaitGroup)
+	wg.Add(2)
+	go news.ToTxt(wg)
+	go news.ToHtml(wg)
+	wg.Wait()
 	c <- true
 }
-/*
-func writeNews(a NewsArticle){
-	d := time.Now()
-    hour,min,sec := d.Clock()
-    year, month, day := d.Date()
-	foutput, err := os.Create("News_%d%02d%02d_%02d%02d%02d.txt",year,int(month),day,hour,min,sec)
-	//fmt.Printf("%d%02d%02d_%02d%02d%02d\n",year,int(month),day,hour,min,sec)
-    if err != nil {
-        panic(err)
-    }
-}
-*/

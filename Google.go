@@ -1,11 +1,10 @@
 package main
 
 import (
-	"fmt"
 	"net/http"
 	"io/ioutil"
 	"encoding/json"
-	"time"
+	"sync"
 )
 
 type GoogleArticle struct{
@@ -37,10 +36,10 @@ func Google(c chan bool) {
 	if err != nil {
 		return 
 	}
-	fmt.Println(time.Now()," Google:")
-	for _, v := range goo.Articles {
-		fmt.Println(v)
-	}
-	fmt.Println()
+	wg := new(sync.WaitGroup)
+	wg.Add(2)
+	go goo.ToTxt(wg)
+	go goo.ToHtml(wg)
+	wg.Wait()
 	c <- true
 }
