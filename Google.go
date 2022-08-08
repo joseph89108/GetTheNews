@@ -5,6 +5,8 @@ import (
 	"io/ioutil"
 	"encoding/json"
 	"sync"
+	"os"
+	_ "github.com/joho/godotenv/autoload"
 )
 
 type GoogleArticle struct{
@@ -23,7 +25,9 @@ func Google(c chan bool) {
 
 	req, _ := http.NewRequest("GET", url, nil)
 
-	req.Header.Add("X-RapidAPI-Key", "3acfdcd9c5msh937236f595a405cp1c0cc2jsn816014f178ff")
+	apiKey := os.Getenv("GOOGLE_RapidAPI_KEY")
+
+	req.Header.Add("X-RapidAPI-Key", apiKey)
 	req.Header.Add("X-RapidAPI-Host", "google-news.p.rapidapi.com")
 
 	res, _ := http.DefaultClient.Do(req)

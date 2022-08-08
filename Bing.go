@@ -5,6 +5,8 @@ import (
 	"io/ioutil"
 	"encoding/json"
 	"sync"
+	"os"
+	_ "github.com/joho/godotenv/autoload"
 )
 
 type BingNewsValue struct{
@@ -35,7 +37,9 @@ func Bing(c chan bool) {
 
 	req, _ := http.NewRequest("GET", url, nil)
 
-	req.Header.Add("Ocp-Apim-Subscription-Key", "50e15c5f752b48d3a0594be991e2e8a4")
+	apiKey := os.Getenv("BING_API_KEY")
+
+	req.Header.Add("Ocp-Apim-Subscription-Key", apiKey)
 
 	res, _ := http.DefaultClient.Do(req)
 
