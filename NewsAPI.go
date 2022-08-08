@@ -20,7 +20,7 @@ type News struct{
 
 func NewsAPI(c chan bool) {
 
-	url := "https://newsapi.org/v2/top-headlines?country=us&apiKey=fd7312e58db040d58caeead30d52a764"
+	url := "https://newsapi.org/v2/top-headlines?country=tw&apiKey=fd7312e58db040d58caeead30d52a764"
 
 	req, _ := http.NewRequest("GET", url, nil)
 
