@@ -19,7 +19,7 @@ type GoogleNews struct{
 
 func Google(c chan bool) {
 
-	url := "https://google-news.p.rapidapi.com/v1/top_headlines?lang=en&country=TW"
+	url := "https://google-news.p.rapidapi.com/v1/top_headlines?lang=zh&country=TW"
 
 	req, _ := http.NewRequest("GET", url, nil)
 
